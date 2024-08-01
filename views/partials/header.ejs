@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adidas Header with Dropdown Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* Light background for contrast */
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            background-color: #fff; /* Header background color */
+            color: #000;
+            position: relative;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            transition: background-color 0.3s ease;
+        }
+
+        .header .logo img {
+            height: 60px; /* Slightly increased logo size */
+        }
+
+        .header .nav {
+            display: flex;
+            gap: 40px; /* Increased gap for better spacing */
+        }
+
+        .header .nav .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .header .nav .dropdown:hover .dropdown-content,
+        .header .nav .dropdown:focus-within .dropdown-content {
+            display: block;
+        }
+
+        .header .nav .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 250px; /* Increased dropdown width */
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .header .nav .dropdown:hover .dropdown-content,
+        .header .nav .dropdown:focus-within .dropdown-content {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .header .nav .dropdown-content a {
+            color: #333;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s;
+        }
+
+        .header .nav .dropdown-content a:hover {
+            background-color: #eee;
+        }
+
+        .header .nav a {
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .header .nav .dropdown > a::after {
+            content: ' ▼';
+            font-size: 0.8em;
+        }
+
+        .header .search {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .header .search input[type="text"] {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            width: 220px;
+            transition: border-color 0.3s;
+        }
+
+        .header .search input[type="text"]:focus {
+            border-color: #000;
+            outline: none;
+        }
+
+        .header .search button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .header .search button:hover {
+            background-color: #333;
+        }
+
+        .header .icons {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .header .icons a {
+            color: #000;
+            font-size: 20px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .header .icons a:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 10px 20px;
+            }
+
+            .header .nav {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .header .search {
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .header .search input[type="text"] {
+                width: calc(100% - 32px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Adidas_2022_logo.svg" alt="Adidas Logo">
+        </div>
+        <nav class="nav">
+            <div class="dropdown">
+                <a href="#">Men</a>
+                <div class="dropdown-content">
+                    <a href="#">Shoes</a>
+                    <a href="#">Clothing</a>
+                    <a href="#">Accessories</a>
+                    <a href="#">New Arrivals</a>
+                    <a href="#">Featured</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Women</a>
+                <div class="dropdown-content">
+                    <a href="#">Shoes</a>
+                    <a href="#">Clothing</a>
+                    <a href="#">Accessories</a>
+                    <a href="#">New Arrivals</a>
+                    <a href="#">Featured</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Kids</a>
+                <div class="dropdown-content">
+                    <a href="#">Shoes</a>
+                    <a href="#">Clothing</a>
+                    <a href="#">Accessories</a>
+                    <a href="#">New Arrivals</a>
+                    <a href="#">Featured</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#">Sports</a>
+                <div class="dropdown-content">
+                    <a href="#">Running</a>
+                    <a href="#">Football</a>
+                    <a href="#">Basketball</a>
+                    <a href="#">Training</a>
+                    <a href="#">Outdoor</a>
+                </div>
+            </div>
+            <a href="#">Sale</a>
+        </nav>
+        <div class="search">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+        <div class="icons">
+            <a href="#" title="My Account">👤</a>
+            <a href="#" title="Cart">🛒</a>
+        </div>
+    </header>
+</body>
+
+</html>

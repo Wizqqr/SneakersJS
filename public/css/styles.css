@@ -1,0 +1,610 @@
+/* styles/styles.css */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+
+}
+
+.mainPage {
+    background-image: url('https://static.vecteezy.com/system/resources/previews/008/311/935/non_2x/the-illustration-graphic-consists-of-abstract-background-with-a-blue-gradient-dynamic-shapes-composition-eps10-perfect-for-presentation-background-website-landing-page-wallpaper-vector.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mainContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%; /* Adjusted width to fit content better */
+    max-width: 1200px; /* Maximum width to prevent stretching */
+}
+
+.mainPage img {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-width: 1100px; /* Limit max width */
+    opacity: 0.5; /* Slight transparency for overlay effect */
+    filter: brightness(60%); /* Slightly darken the image */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    text-align: center;
+    z-index: 2;
+    padding: 20px; /* Padding around the text */
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
+    animation: fadeIn 2s ease-out, slideUp 1s ease-out;
+}
+
+.overlay-text h1 {
+    font-size: 4rem;
+    margin: 0;
+    padding: 0;
+    animation: bounce 2s infinite;
+}
+
+.overlay-text p {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    padding: 0;
+    opacity: 0.9;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    background-color: #ff5722;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #e64a19;
+    animation: pulse 1s infinite;
+}
+
+/* Keyframe animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translate(-50%, -60%); }
+    to { transform: translate(-50%, -50%); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-30px); }
+    60% { transform: translateY(-15px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.containerH1{
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 10px;
+    border-bottom: 2px solid #000;
+    display: inline-block;
+}
+
+.sneaker-carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+
+.sneaker-carousel:hover .carousel-button {
+    opacity: 1;
+}
+
+.carousel-button {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    z-index: 10;
+    height: 52px;
+}
+
+.carousel-button.prev {
+    left: 0;
+}
+
+.carousel-button.next {
+    right: 0;
+}
+
+.carousel-button:hover {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+}
+
+.sneaker-list-wrapper {
+    overflow: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sneaker-list {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.sneaker-card {
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    min-width: 350px;
+    margin: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sneaker-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid #000;
+}
+.sneaker-text{
+    padding: 7px;
+}
+.sneaker-image {
+    width: 100%;
+    height: auto;
+}
+
+.sneaker-info {
+    padding: 20px;
+}
+
+.sneaker-name {
+    font-size: 0.8em;
+    margin: 10px 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #474747;
+}
+
+.sneaker-brand {
+    font-size: 0.8em;
+    margin: 5px 0;
+    color: #333;
+}
+
+.buy-now {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.buy-now:hover {
+    background-color: #333;
+}
+
+.no-sneakers {
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .sneaker-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sneaker-card {
+        min-width: auto;
+        margin: 10px;
+        width: 195px;
+    }
+
+    .sneaker-text {
+        padding: 10px;
+    }
+
+    .carousel-button {
+        display: none;
+    }
+
+    .sneaker-image {
+        height: 180px; /* Увеличена высота изображений */
+        object-fit: cover;
+    }
+}
+
+.secondContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    column-gap: 75px;
+}
+.secondContainer h1{
+    font-size: 60px;
+}
+.secondContainer button{
+    height: 60px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+    font-size: 18px;
+    border: none;
+}
+.secondContainer p{
+    font-weight: 100;
+    font-size: 18px;
+
+}
+.thirdContainer {
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff; /* Белый фон для контента */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 1650px;
+    height: 780px; /* Высота для контейнера */
+    overflow: hidden; /* Обрезка содержимого, если оно выходит за пределы */
+}
+
+.thirdContainerTitle {
+    font-size: 2.5em;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #333;
+}
+.thirdContainer img{
+    width: 400px;
+    height:500px;
+}
+.sneaker-carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; 
+}
+
+.sneaker-carousel:hover .carousel-button {
+    opacity: 1;
+}
+/* Existing styles... */
+
+/* Mobile styles */
+@media only screen and (max-width: 768px) {
+    .sneaker-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sneaker-card {
+        min-width: auto;
+        margin: 10px;
+        width: 195px;
+    }
+
+    .sneaker-text {
+        padding: 10px;
+    }
+
+    .carousel-button {
+        display: none;
+    }
+
+    .sneaker-image {
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .secondContainer {
+        flex-direction: column;
+        margin: 20px;
+        column-gap: 20px;
+    }
+
+    .secondConImg img {
+        width: 100%;
+        height: auto;
+    }
+
+    .secondConText {
+        text-align: center;
+    }
+
+    .secondConText h1 {
+        font-size: 2em;
+    }
+
+    .secondConText p {
+        font-size: 1em;
+    }
+
+    .secondConText button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .thirdContainer {
+        height: auto;
+    }
+
+    .sneaker-carousel {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+    }
+
+    .sneaker-card {
+        min-width: auto;
+        margin: 5px;
+        width: 100%;
+    }
+    .sneaker-list{
+        column-gap: 10px;
+    }
+    .fourthContainer h1 {
+        font-size: 2em;
+    }
+
+    .fourthContainer p {
+        font-size: 1em;
+    }
+
+    .fourthContainerImages {
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .fourthContainerImg2 {
+        flex-direction: row;
+    }
+
+    .fourthContainerImg2 img {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    .reviewsContainer h1 {
+        font-size: 1.5em;
+    }
+
+    .reviewsContainer p {
+        font-size: 1em;
+    }
+
+    .review-card {
+        font-size: 0.9em;
+    }
+
+    .review-img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.fourthContainer{
+    text-align: center;
+    padding: 5px;
+}
+.fourthContainerImages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 50px;
+}
+.fourthContainerImg2{
+    display: flex;
+    flex-direction:column;
+    column-gap: 50px;
+}
+.fourthContainerImg2 img{
+    margin-top: 10px;
+}
+.fourthContainer h1{
+    font-size: 50px;
+}
+.fourthContainer p{
+    font-size: 20px;
+}
+/* styles.css */
+
+/* General container styles */
+.reviewsContainer {
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-top: 2px solid #ddd;
+}
+
+.reviewsContainer h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.reviewsContainer p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.reviews {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.review-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-card p {
+    margin: 0 0 10px;
+}
+
+.review-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.new-comment-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.new-comment-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.new-comment-form select,
+.new-comment-form input[type="text"],
+.new-comment-form textarea,
+.new-comment-form input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+    appearance: none; /* Убирает стандартный стиль браузера */
+    -webkit-appearance: none; /* Убирает стандартный стиль браузера в Safari */
+    -moz-appearance: none; /* Убирает стандартный стиль браузера в Firefox */
+    position: relative;
+    padding-right: 30px;
+}
+
+.new-comment-form select::after {
+    content: '▼';
+    font-size: 12px;
+    color: #333;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.new-comment-form button {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.new-comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.new-comment-form input[type="text"]:focus,
+.new-comment-form textarea:focus,
+.new-comment-form input[type="number"]:focus,
+.new-comment-form select:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+.new-comment-form input[type="number"] {
+    -moz-appearance: textfield; /* Hide arrows in Firefox */
+}
+
+.new-comment-form input[type="number"]::-webkit-outer-spin-button,
+.new-comment-form input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Hide arrows in Chrome, Safari, Edge, Opera */
+    margin: 0;
+}
+/* styles.css */
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}

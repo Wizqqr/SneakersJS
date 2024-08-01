@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sneaker Store</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <%- include('partials/header.ejs') %>
+    <div class="mainPage hidden">
+        <div class="mainContainer">
+            <div class="overlay-text">
+                <h1>Welcome to Our Sneaker Store</h1>
+                <p>Discover the latest trends in sneaker fashion and find your perfect pair today!</p>
+                <a href="#shop" class="cta-button">Shop Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="container hidden">
+        <h1 class="containerH1">Sneaker Store</h1>
+        <div class="sneaker-carousel">
+            <button class="carousel-button prev">&lt;</button>
+            <div class="sneaker-list-wrapper">
+                <div class="sneaker-list">
+                    <% if(sneakers.length > 0){ %>
+                        <% sneakers.forEach(sneaker => { %>
+                            <% if (!sneaker.bestSeller) { %>
+                            <div class="sneaker-card hidden">
+                                <img src="<%= sneaker.image_url %>" alt="<%= sneaker.name %>" class="sneaker-image">
+                                <div class="sneaker-text">
+                                    <h2 class="sneaker-name"><%= sneaker.name %></h2>
+                                    <p class="sneaker-brand"><%= sneaker.brand %></p>
+                                </div>
+                            </div>
+                            <% } %>
+                        <% }); %>
+                    <% } else { %>
+                        <h1>No sneakers available</h1>
+                    <% } %>
+                </div>
+            </div>
+            <button class="carousel-button next">&gt;</button>
+        </div>
+    </div>
+    <div class="secondContainer hidden">
+        <div class="secondConImg">
+            <img src="img/Rectangle 6.png" alt="">
+        </div>
+        <div class="secondConText">
+            <h1>Be your <br> Own Level</h1>
+            <p>The right shoes can take any outfit from basic to stylish with just  <br>
+                a few steps. At our shoe store, we have a wide variety of stylish  <br>
+                shoes to help you create the perfect look. From contemporary  <br>
+                sneakers to classic loafers, we have something to match all  <br>
+                tastes and occasions. Our shoes are designed to be comfortable, <br>
+                 durable, and fashionable, so you can look and feel your best no <br>
+                  matter what you’re wearing.</p>
+            <button class="secondConBtn">
+                Shop Now
+            </button>
+        </div>
+    </div>
+    <div class="thirdContainer hidden">
+        <h2 class="thirdContainerTitle">Best Sellers</h2>
+        <div class="sneaker-carousel">
+            <% if(bestSellers.length > 0) { %>
+                <% bestSellers.forEach(sneaker => { %>
+                <div class="sneaker-card hidden">
+                    <img src="<%= sneaker.image_url %>" alt="<%= sneaker.name %>" class="sneaker-image-bestseller" id="sneaker-image">
+                    <div class="sneaker-text">
+                        <h2 class="sneaker-name"><%= sneaker.name %></h2>
+                        <p class="sneaker-brand"><%= sneaker.brand %></p>
+                    </div>
+                </div>
+                <% }); %>
+            <% } else { %>
+                <p>No bestsellers available.</p>
+            <% } %>
+        </div>
+    </div>
+    <div class="fourthContainer hidden">
+        <h1>Our Shoes Reviews</h1>
+        <p>Check the comments and ratings given by users</p>
+        <div class="fourthContainerImages">
+        <div class="fourthContainerImg1">
+            <img src="img/Rectangle 21.png" alt="">
+        </div>
+        <div class="fourthContainerImg2">
+            <img src="img/Rectangle 22.png" alt="">
+            <img src="img/Rectangle 24.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="reviewsContainer hidden">
+    <h1>Our Shoes Reviews</h1>
+    <p>Check the comments and ratings given by users</p> <a href="comments/new">Create a comment</a>
+
+    <div class="reviews">
+        <% if(reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+            <div class="review-card hidden">
+                <% if (review.img) { %>
+                    <img src="<%= review.img %>" alt="Review image" class="review-img">
+                <% } %>
+                <p><strong><%= review.user_name %>:</strong> <%= review.content %></p>
+                <p>Rating: <%= review.stars %> stars</p>
+            </div>
+            <% }); %>
+        <% } else { %>
+            <p>No reviews available.</p>
+        <% } %>
+    </div>
+</div>
+    <script src="js/animations.js"></script>
+    <script src="js/carousel.js"></script>
+</body>
+</html>
