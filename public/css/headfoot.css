@@ -1,0 +1,135 @@
+/* Global styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #e9ecef;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #343a40;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+  
+  .card-body {
+    padding: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+  
+  .form-control {
+    height: 50px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .form-control:focus {
+    border-color: #495057;
+    box-shadow: none;
+  }
+  
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+  
+  .btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+  
+  /* Desktop styles */
+  @media (min-width: 768px) {
+    .row {
+      display: flex;
+      justify-content: center;
+    }
+  
+    .col-sm-8 {
+      flex: 0 0 75%;
+      max-width: 75%;
+    }
+  
+    /* Uncomment to enable social login card on desktop */
+    /* .col-sm-4 {
+      flex: 0 0 25%;
+      max-width: 25%;
+    }
+  
+    .social-block {
+      text-align: center;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+  
+    .social-block .btn {
+      background-color: #db4437;
+      margin: 15px 0;
+    } */
+  }
+  
+  /* Mobile styles */
+  @media (max-width: 767px) {
+    .col-sm-8 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+  
+    .card {
+      margin: 0 15px;
+    }
+  
+    .btn {
+      font-size: 1.1rem;
+      padding: 12px;
+    }
+  
+    /* Uncomment to enable social login button on mobile */
+    /* .social-block {
+      margin-top: 20px;
+      text-align: center;
+    } */
+  }
+  

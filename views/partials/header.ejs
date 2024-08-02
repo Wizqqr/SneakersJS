@@ -168,6 +168,20 @@
                 width: calc(100% - 32px);
             }
         }
+        .btn{
+            display: inline-block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s;
+        }
     </style>
 </head>
 
@@ -226,8 +240,15 @@
         <div class="icons">
             <a href="#" title="My Account">👤</a>
             <a href="#" title="Cart">🛒</a>
+            <% if(!user){ %>
+                <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
+            <a class="btn btn-dark btn-lg" href="/login" role="button" id="loginId">Login</a>
+            <% } else{%>
+                <h1>Hello <%= user.username %></h1>
+            <% }%>
+            
         </div>
     </header>
+<script src="../public/js/animations.js"></script>
 </body>
-
 </html>
