@@ -6,7 +6,7 @@
     <title>Sneaker Store</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body id="body">
     <%- include('partials/header.ejs') %>
 
     <div class="mainPage hidden">
@@ -18,32 +18,47 @@
             </div>
         </div>
     </div>
-    <div class="container hidden">
-        <h1 class="containerH1">Sneaker Store</h1>
-        <div class="sneaker-carousel">
-            <button class="carousel-button prev">&lt;</button>
-            <div class="sneaker-list-wrapper">
-                <div class="sneaker-list">
-                    <% if(sneakers.length > 0){ %>
-                        <% sneakers.forEach(sneaker => { %>
-                            <% if (!sneaker.bestSeller) { %>
-                            <div class="sneaker-card hidden">
-                                <img src="<%= sneaker.image_url %>" alt="<%= sneaker.name %>" class="sneaker-image">
-                                <div class="sneaker-text">
-                                    <h2 class="sneaker-name"><%= sneaker.name %></h2>
-                                    <p class="sneaker-brand"><%= sneaker.brand %></p>
-                                </div>
+
+    <h1>Sneaker Store</h1>
+    <div class="sneaker-carousel">
+        <button class="carousel-button prev">&lt;</button>
+        <div class="sneaker-list-wrapper">
+            <div class="sneaker-list">
+                <% if(sneakers.length > 0){ %>
+                    <% sneakers.forEach(sneaker => { %>
+                        <% if (!sneaker.bestSeller) { %>
+                        <div class="sneaker-card visible" onclick="openModal('<%= sneaker.name %>', '<%= sneaker.brand %>', '<%= sneaker.image_url %>')">
+                            <img src="<%= sneaker.image_url %>" alt="<%= sneaker.name %>" class="sneaker-image">
+                            <div class="sneaker-text">
+                                <h2 class="sneaker-name"><%= sneaker.name %></h2>
+                                <p class="sneaker-brand"><%= sneaker.brand %></p>
                             </div>
-                            <% } %>
-                        <% }); %>
-                    <% } else { %>
-                        <h1>No sneakers available</h1>
-                    <% } %>
-                </div>
+                        </div>
+                        <% } %>
+                    <% }); %>
+                <% } else { %>
+                    <h1>No sneakers available</h1>
+                <% } %>
             </div>
-            <button class="carousel-button next">&gt;</button>
+        </div>
+        <button class="carousel-button next">&gt;</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="sneakerModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-imageContainer">
+            <span class="close-modal">&times;</span>
+            <img id="modalImage" src="" alt="Sneaker Image" class="modal-image">
+        </div>
+            <div class="modal-text">
+                <h2 id="modalName"></h2>
+                <p id="modalBrand"></p>
+                <p id="modalDescription">This is a great pair of sneakers with top-notch comfort and style. Perfect for all occasions!</p>
+            </div>
         </div>
     </div>
+
     <div class="secondContainer hidden">
         <div class="secondConImg">
             <img src="img/Rectangle 6.png" alt="">
@@ -55,8 +70,8 @@
                 shoes to help you create the perfect look. From contemporary  <br>
                 sneakers to classic loafers, we have something to match all  <br>
                 tastes and occasions. Our shoes are designed to be comfortable, <br>
-                 durable, and fashionable, so you can look and feel your best no <br>
-                  matter what you’re wearing.</p>
+                durable, and fashionable, so you can look and feel your best no <br>
+                matter what you’re wearing.</p>
             <button class="secondConBtn">
                 Shop Now
             </button>
@@ -67,7 +82,7 @@
         <div class="sneaker-carousel">
             <% if(bestSellers.length > 0) { %>
                 <% bestSellers.forEach(sneaker => { %>
-                <div class="sneaker-card hidden">
+                <div class="sneaker-card hidden" onclick="openModal('<%= sneaker.name %>', '<%= sneaker.brand %>', '<%= sneaker.image_url %>')">
                     <img src="<%= sneaker.image_url %>" alt="<%= sneaker.name %>" class="sneaker-image-bestseller" id="sneaker-image">
                     <div class="sneaker-text">
                         <h2 class="sneaker-name"><%= sneaker.name %></h2>
@@ -93,26 +108,42 @@
         </div>
     </div>
 </div>
-<div class="reviewsContainer hidden">
-    <h1>Our Shoes Reviews</h1>
-    <p>Check the comments and ratings given by users</p> <a href="comments/new">Create a comment</a>
-
-    <div class="reviews">
-        <% if(reviews.length > 0) { %>
-            <% reviews.forEach(review => { %>
-            <div class="review-card hidden">
-                <% if (review.img) { %>
-                    <img src="<%= review.img %>" alt="Review image" class="review-img">
-                <% } %>
-                <p><strong><%= review.user_name %>:</strong> <%= review.content %></p>
-                <p>Rating: <%= review.stars %> stars</p>
-            </div>
-            <% }); %>
+<div class="reviewsContainer">
+    <% if (reviews.length > 0) { %>
+        <% if (!user) { %>
+            <h1>Чтобы увидеть комментарии, пожалуйста, зарегистрируйтесь</h1>
         <% } else { %>
-            <p>No reviews available.</p>
+            <a href="comments/new" class="new-comment-button">Создать комментарий</a>
+            <div class="reviews">
+                <% reviews.forEach(review => { %>
+                    <article class="review-card hidden">
+                        <% if (review.img) { %>
+                            <img src="<%= review.img %>" alt="Review image" class="review-img">
+                        <% } %>
+                        <header>
+                            <p><strong><%= review.user_name %>:</strong></p>
+                        </header>
+                        <p><%= review.content %></p>
+                        <p>Рейтинг: <%= review.stars %> звезд</p>
+                        <% if (user.email === review.user_email) { %>
+                            <footer>
+                                <form action="/comments/<%= review.id %>?_method=DELETE" method="POST">
+                                    <button type="submit" class="delete-button">Удалить</button>
+                                </form>
+                            </footer>
+                        <% } %>
+                    </article>
+                <% }); %>
+            </div>
         <% } %>
-    </div>
+    <% } else { %>
+        <p>Нет доступных отзывов.</p>
+    <% } %>
 </div>
+
+
+
+<script src="js/modalWindow.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/carousel.js"></script>
 </body>

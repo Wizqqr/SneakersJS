@@ -1,10 +1,9 @@
 import bodyParser from "body-parser";
-import methodOverride from "method-override";
 import pgPromise from "pg-promise";
 import express from "express";
 import session from 'express-session';
 import dotenv from 'dotenv';
-
+import methodOverride from "method-override"
 dotenv.config();
 
 const app = express();
@@ -87,12 +86,15 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/comments', async (req, res) => {
-    const { userName, img, content, stars } = req.body;
-    if (!userName.trim() || !content.trim() || !stars.trim()) {
-        res.render("new-comment.ejs", { error: 'All fields are required to create a comment' });
+    const { userName = "", img = "", content = "", stars = "" } = req.body;
+    const user = req.session.user;
+
+    if (!userName.trim() || !img.trim() || !content.trim() || !stars.trim() || !user) {
+        const sneakers = await db.any('SELECT * FROM sneakers');
+        res.render("new-comment.ejs", { error: 'All fields are required to create a comment' }, {sneakers});
     } else {
         try {
-            await db.none('INSERT INTO comments(user_name, img, content, stars) VALUES($1, $2, $3, $4)', [userName, img, content, stars]);
+            await db.none('INSERT INTO comments(user_name, img, content, stars, user_email) VALUES($1, $2, $3, $4, $5)', [userName, img, content, stars, user.email]);
             res.redirect('/');
         } catch (error) {
             console.error('Error creating comment:', error);
@@ -100,6 +102,34 @@ app.post('/comments', async (req, res) => {
         }
     }
 });
+app.delete('/comments/:id', async (req, res) => {
+    const commentId = req.params.id;
+    const user = req.session.user;
+
+    if (!user) {
+        return res.status(401).send('Unauthorized');
+    }
+
+    try {
+        const comment = await db.oneOrNone('SELECT * FROM comments WHERE id = $1', [commentId]);
+
+        if (!comment) {
+            return res.status(404).send('Комментарий не найден');
+        }
+
+        if (comment.user_email !== user.email) {
+            return res.status(403).send('Доступ запрещен: Вы можете удалить только свои комментарии');
+        }
+
+        await db.none('DELETE FROM comments WHERE id = $1', [commentId]);
+        res.redirect('/');
+    } catch (error) {
+        console.error('Ошибка при удалении комментария:', error);
+        res.status(500).send('Внутренняя ошибка сервера');
+    }
+});
+
+
 
 app.post("/register", async (req, res) => {
     const name = req.body.username;
@@ -111,13 +141,8 @@ app.post("/register", async (req, res) => {
             res.send("Email already exists. Retry");
         } else {
             await dbUsers.none(`INSERT INTO users (email, password, username) VALUES ($1, $2, $3)`, [email, password, name]);
-
-            const sneakers = await db.any(`SELECT * FROM sneakers WHERE bestSeller = FALSE ORDER BY id ASC`);
-            const bestSellers = await db.any(`SELECT * FROM sneakers WHERE bestSeller = TRUE ORDER BY id ASC`);
-            const reviews = await db.any(`SELECT * FROM comments ORDER BY id DESC`);
-
-            req.session.user = { username: name, email: email };
-            res.render("main.ejs", { sneakers, reviews, bestSellers, user: req.session.user });
+            req.session.user = { username: name, email: email }; // Set session
+            res.redirect('/');
         }
     } catch (error) {
         console.error(error);
@@ -126,20 +151,18 @@ app.post("/register", async (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-    const email = req.body.username;
+    const email = req.body.email; // Correct the field name
     const password = req.body.password;
 
     try {
         const result = await dbUsers.any(`SELECT * FROM users WHERE email = $1`, [email]);
-        const sneakers = await db.any(`SELECT * FROM sneakers WHERE bestSeller = FALSE ORDER BY id ASC`);
-        const bestSellers = await db.any(`SELECT * FROM sneakers WHERE bestSeller = TRUE ORDER BY id ASC`);
-        const reviews = await db.any(`SELECT * FROM comments ORDER BY id DESC`);
         if (result.length > 0) {
             const user = result[0];
             const storedPassword = user.password;
 
             if (storedPassword === password) {
-                res.render('main.ejs', { sneakers, reviews, bestSellers, user });
+                req.session.user = { username: user.username, email: user.email }; // Set session
+                res.redirect('/');
             } else {
                 res.send('Incorrect password');
             }
@@ -151,6 +174,7 @@ app.post("/login", async (req, res) => {
         res.sendStatus(500);
     }
 });
+
 
 app.listen(port, () => {
     console.log(`The server started on port ${port}`);
